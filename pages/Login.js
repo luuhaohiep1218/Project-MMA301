@@ -24,7 +24,9 @@ const LoginScreen = () => {
     );
 
     if (user) {
-      await AsyncStorage.setItem("userToken", email);
+      await AsyncStorage.setItem("emailUser", user.email);
+      await AsyncStorage.setItem("nameUser", user.name);
+      await AsyncStorage.setItem("passwordUser", user.password);
       Alert.alert("Đăng nhập thành công!");
       navigation.replace("Main");
     } else {

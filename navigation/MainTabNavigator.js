@@ -13,6 +13,7 @@ export default function MainTabNavigator() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
+        headerShown: false,
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
           if (route.name === "Home")
@@ -27,12 +28,13 @@ export default function MainTabNavigator() {
         },
         tabBarActiveTintColor: "#5550F2",
         tabBarInactiveTintColor: "gray",
+        sceneStyle: { backgroundColor: "white", paddingTop: 50 },
       })}
     >
       <Tab.Screen name="Home" component={HomePage} />
-      <Tab.Screen name="Profile" component={ProfilePage} />
       <Tab.Screen name="Explore" component={ExplorePage} />
       <Tab.Screen name="Cookbook" component={CookbookPage} />
+      <Tab.Screen name="Profile" component={ProfilePage} />
     </Tab.Navigator>
   );
 }
