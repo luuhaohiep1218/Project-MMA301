@@ -383,3 +383,90 @@ export const recipes = [
     ],
   },
 ];
+
+export const myRecipes = [
+  {
+    id: "16",
+    name: "Chocolate Cake",
+    category: "Dessert",
+    description: "Bánh chocolate mềm mịn, ngọt ngào.",
+    calories: 450,
+    cookingTime: "45 phút",
+    servings: 8,
+    image:
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP7mYb2zvY2IGO9_EocEptv0k-JTabTeh58g&s",
+    ingredients: [
+      { name: "Bột mì", amount: "200g" },
+      { name: "Đường", amount: "150g" },
+      { name: "Trứng", amount: "3 quả" },
+      { name: "Bơ", amount: "100g" },
+      { name: "Bột cacao", amount: "50g" },
+    ],
+    instructions: [
+      "Trộn tất cả nguyên liệu.",
+      "Nướng trong lò ở 180°C trong 30 phút.",
+    ],
+  },
+  {
+    id: "17",
+    name: "Paneer Curry",
+    category: "Dinner",
+    description: "Paneer nấu với nước sốt cay đặc trưng của Ấn Độ.",
+    calories: 400,
+    cookingTime: "40 phút",
+    servings: 4,
+    image:
+      "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/butter_paneer_curry_98394_16x9.jpg",
+    ingredients: [
+      { name: "Paneer", amount: "250g" },
+      { name: "Cà chua", amount: "2 quả" },
+      { name: "Hành tây", amount: "1 củ" },
+      { name: "Gia vị", amount: "tuỳ chỉnh" },
+    ],
+    instructions: [
+      "Xào hành và cà chua.",
+      "Thêm paneer và gia vị, nấu thêm 15 phút.",
+    ],
+  },
+];
+
+export const savedRecipes = [
+  {
+    id: "18",
+    name: "Mango Mojito",
+    category: "Beverage",
+    description: "Thức uống mát lạnh từ xoài và bạc hà.",
+    calories: 120,
+    cookingTime: "10 phút",
+    servings: 2,
+    image:
+      "https://www.chilitochoc.com/wp-content/uploads/2023/07/mango-mojito-non-alcoholic.jpg",
+    ingredients: [
+      { name: "Xoài", amount: "1 quả" },
+      { name: "Lá bạc hà", amount: "vài lá" },
+      { name: "Đường", amount: "2 muỗng" },
+      { name: "Nước soda", amount: "200ml" },
+    ],
+    instructions: [
+      "Xay nhuyễn xoài với đường.",
+      "Thêm soda và bạc hà, khuấy đều.",
+    ],
+  },
+  {
+    id: "19",
+    name: "Quinoa Bowl",
+    category: "Healthy",
+    description: "Bữa ăn nhẹ nhàng với quinoa và rau củ.",
+    calories: 350,
+    cookingTime: "20 phút",
+    servings: 2,
+    image:
+      "https://images.themodernproper.com/production/posts/2020/QuinoaBowl_4.jpg?w=1200&h=1200&q=60&fm=jpg&fit=crop&dm=1737605526&s=b91b6baac05eb76bd048a76d12f4a9cd",
+    ingredients: [
+      { name: "Quinoa", amount: "100g" },
+      { name: "Rau củ", amount: "200g" },
+      { name: "Dầu olive", amount: "1 muỗng canh" },
+    ],
+    instructions: ["Luộc quinoa cho chín.", "Xào rau củ và trộn với quinoa."],
+  },
+];
