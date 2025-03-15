@@ -1,22 +1,21 @@
-import React, { useState, useEffect, useMemo } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useMemo, useState } from "react";
 import {
-  View,
+  Dimensions,
+  FlatList,
+  ImageBackground,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  ImageBackground,
-  FlatList,
-  Dimensions,
-  Pressable,
-  KeyboardAvoidingView,
-  Platform,
   TouchableWithoutFeedback,
-  Keyboard,
+  View
 } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useNavigation } from "@react-navigation/native";
 import { recipes } from "../data";
 
 const numColumns = 2;
@@ -188,7 +187,7 @@ export default function HomePage() {
           renderItem={({ item }) => (
             <TouchableOpacity
               style={styles.card}
-              onPress={() => navigation.navigate("Detail", { recipe: item })}
+              onPress={() => navigation.navigate("RecipeDetail", { recipe: item })}
             >
               <ImageBackground
                 source={{ uri: item.image }}

@@ -1,7 +1,7 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+import React from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { recipes } from '../data';
 
 const RecipeByCategory = ({ route, navigation }) => {
@@ -10,7 +10,8 @@ const RecipeByCategory = ({ route, navigation }) => {
   const filteredRecipes = recipes.filter(recipe => recipe.category === category);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer}
+     onPress={() => navigation.navigate('RecipeDetail', { recipe: item })}>
       <View style={styles.imageContainer}>
         <Image source={{ uri: item.image }} style={styles.itemImage} />
         <LinearGradient

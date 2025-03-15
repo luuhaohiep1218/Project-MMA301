@@ -1,12 +1,13 @@
-import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
 import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
+import React from "react";
 
-import Start from "./pages/Start";
-import Login from "./pages/Login";
-import Signup from "./pages/Signup";
-import RecipeByCategory from "./pages/RecipeByCategory";
 import MainTabNavigator from "./navigation/MainTabNavigator"; // Import đúng
+import Login from "./pages/Login";
+import RecipeByCategory from "./pages/RecipeByCategory";
+import RecipeDetail from "./pages/RecipeDetail";
+import Signup from "./pages/Signup";
+import Start from "./pages/Start";
 
 const Stack = createStackNavigator();
 
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="Signup" component={Signup} />
         <Stack.Screen name="RecipeByCategory" component={RecipeByCategory} />
         <Stack.Screen name="Main" component={MainTabNavigator} />
+        <Stack.Screen name="RecipeDetail" component={RecipeDetail} />
       </Stack.Navigator>
     </NavigationContainer>
   );

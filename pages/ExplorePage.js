@@ -1,14 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
+import { useNavigation } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { StatusBar } from 'expo-status-bar';
+import React from 'react';
+import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { recipes } from '../data';
 
 const ExplorePage = () => {
+  const navigation = useNavigation();
   const latestRecipes = recipes.slice(0, 7);
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer}>
+    <TouchableOpacity style={styles.itemContainer}
+     onPress={() => navigation.navigate('RecipeDetail', { recipe: item })}>
       <View style={styles.imageContainer}>
         <Image source={{ uri: item.image }} style={styles.itemImage} />
         <LinearGradient
