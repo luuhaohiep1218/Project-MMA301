@@ -81,7 +81,7 @@ export default function HomePage() {
 
   const handleSearch = (query) => {
     setSearch(query);
-    setShowSuggestions(query.length > 0); // Chỉ hiển thị nếu có ký tự
+    setShowSuggestions(query.length > 0);
   };
 
   const handleLogout = async () => {
@@ -93,7 +93,7 @@ export default function HomePage() {
     <TouchableOpacity
       key={category}
       style={styles.categoryItem}
-      onPress={() => alert(`Selected: ${category}`)}
+      onPress={() => navigation.navigate("RecipeByCategory", { category })}
     >
       <Ionicons name="fast-food-outline" size={30} color="orange" />
       <Text>{category}</Text>
@@ -178,6 +178,7 @@ export default function HomePage() {
         <FlatList
           data={randomRecipes}
           keyExtractor={(item) => item.id}
+          showsVerticalScrollIndicator={false}
           numColumns={numColumns}
           getItemLayout={(data, index) => ({
             length: 150,

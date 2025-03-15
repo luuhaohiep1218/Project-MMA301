@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, Text, View, FlatList, Image, TouchableOpacity } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
 import { LinearGradient } from 'expo-linear-gradient';
+import { Ionicons } from '@expo/vector-icons';
 import { recipes } from '../data';
 
-const ExplorePage = () => {
-  const latestRecipes = recipes.slice(0, 7);
+const RecipeByCategory = ({ route, navigation }) => {
+  const { category } = route.params;
+
+  const filteredRecipes = recipes.filter(recipe => recipe.category === category);
 
   const renderItem = ({ item }) => (
     <TouchableOpacity style={styles.itemContainer}>
@@ -25,15 +27,21 @@ const ExplorePage = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Explore Page</Text>
+      <TouchableOpacity
+        style={styles.backButton}
+        onPress={() => navigation.goBack()} 
+      >
+        <Ionicons name="arrow-back" size={24} color="black" />
+        <Text style={styles.backText}></Text>
+      </TouchableOpacity>
+      <Text style={styles.title}>{category}</Text>
       <FlatList
-        data={recipes}
+        data={filteredRecipes}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         numColumns={2}
         contentContainerStyle={styles.scrollContainer}
       />
-      <StatusBar style="auto" />
     </View>
   );
 };
@@ -43,10 +51,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  backButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 20,
+  },
+  backText: {
+    marginLeft: 5,
+    fontSize: 16,
+  },
   title: {
     fontSize: 30,
     fontWeight: 'bold',
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
   },
   scrollContainer: {
     padding: 10,
@@ -59,7 +77,7 @@ const styles = StyleSheet.create({
   },
   itemImage: {
     width: '100%',
-    height: 200,
+    height: 250,
     borderRadius: 10,
   },
   itemTextContainer: {
@@ -75,4 +93,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ExplorePage;
+export default RecipeByCategory;
