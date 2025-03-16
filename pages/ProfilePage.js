@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
+import React, { useEffect, useState } from "react";
+import { Alert, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const ProfilePage = () => {
   const navigation = useNavigation();
@@ -54,7 +54,8 @@ const ProfilePage = () => {
       </View>
 
       <View style={styles.menuContainer}>
-        <TouchableOpacity style={styles.menuItem}>
+        <TouchableOpacity style={styles.menuItem}
+          onPress={() => navigation.navigate("CreateRecipe")}>
           <Ionicons
             name="add-circle-outline"
             size={24}

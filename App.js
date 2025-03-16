@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import React from "react";
 
 import MainTabNavigator from "./navigation/MainTabNavigator"; // Import đúng
+import CreateRecipeScreen from "./pages/CreateRecipe";
 import Login from "./pages/Login";
 import RecipeByCategory from "./pages/RecipeByCategory";
 import RecipeDetail from "./pages/RecipeDetail";
@@ -21,6 +22,7 @@ export default function App() {
         <Stack.Screen name="RecipeByCategory" component={RecipeByCategory} />
         <Stack.Screen name="Main" component={MainTabNavigator} />
         <Stack.Screen name="RecipeDetail" component={RecipeDetail} />
+        <Stack.Screen name="CreateRecipe" component={CreateRecipeScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
