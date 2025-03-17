@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 const RecipeDetail = ({ route, navigation }) => {
   const { recipe } = route.params; // Get the recipe data from route params
@@ -11,9 +11,22 @@ const RecipeDetail = ({ route, navigation }) => {
     { label: 'Servings', value: `${recipe.servings} People`, icon: 'people' },
   ];
 
-  const handleSave = () => {
-    // Implement save functionality here
-    console.log('Recipe saved!');
+  const handleSave = async () => {
+    try {
+      const response = await fetch('http://localhost:5000/savedRecipes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(recipe),
+      });
+      const data = await response.json();
+      console.log('Recipe saved!', data);
+      Alert.alert('Success', 'Recipe has been saved to your saved recipes!');
+    } catch (error) {
+      console.error('Error saving recipe:', error);
+      Alert.alert('Error', 'Failed to save recipe. Please try again later.');
+    }
   };
 
   return (

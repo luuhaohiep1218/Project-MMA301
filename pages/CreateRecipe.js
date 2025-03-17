@@ -1,73 +1,34 @@
 import React, { useState } from 'react';
-import { Alert, Button, StyleSheet, Text, TextInput, View } from 'react-native';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import Icon from 'react-native-vector-icons/Ionicons'; // Import icon back từ react-native-vector-icons
+import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'; // Import KeyboardAwareScrollView
+import ImagePickerComponent from './ImagePickerComponent'; // Import ImagePickerComponent
 
-const CreateRecipeScreen = ({ navigation }) => {
+const CreateRecipeScreen = () => {
   const [name, setName] = useState('');
   const [category, setCategory] = useState('');
   const [description, setDescription] = useState('');
   const [calories, setCalories] = useState('');
   const [cookingTime, setCookingTime] = useState('');
   const [servings, setServings] = useState('');
-  const [ingredients, setIngredients] = useState([{ name: '', amount: '' }]);
-  const [instructions, setInstructions] = useState(['']);
-  const [image, setImage] = useState('');
-  const [errors, setErrors] = useState({});
+  const [note, setNote] = useState(''); // Note for the image
+  const [imageUri, setImageUri] = useState(null); // URI of the selected image
+  const [ingredients, setIngredients] = useState([{ name: '', amount: '' }]); // Ingredients list
+  const [steps, setSteps] = useState(['']); // Steps list
 
-  // Dữ liệu các công thức
-  const [recipes, setRecipes] = useState([]);
-  const [myRecipes, setMyRecipes] = useState([]); // Thêm state myRecipes để lưu công thức của người dùng
-
-  const handleAddIngredient = () => {
-    setIngredients([...ingredients, { name: '', amount: '' }]);
-  };
-
-  const handleAddInstruction = () => {
-    setInstructions([...instructions, '']);
-  };
-
+  // Validate form before submitting
   const validate = () => {
-    let valid = true;
-    const errors = {};
-
-    if (!name) {
-      errors.name = 'Recipe name is required';
-      valid = false;
+    if (!name || !category || !description || !calories || !cookingTime || servings < 1 || !imageUri) {
+      alert('Please fill in all fields and add an image!');
+      return false;
     }
-    if (!category) {
-      errors.category = 'Category is required';
-      valid = false;
-    }
-    if (!description) {
-      errors.description = 'Description is required';
-      valid = false;
-    }
-    if (!calories) {
-      errors.calories = 'Calories are required';
-      valid = false;
-    }
-    if (!cookingTime) {
-      errors.cookingTime = 'Cooking time is required';
-      valid = false;
-    }
-    if (!servings || servings < 1) {
-      errors.servings = 'Servings must be greater than 0';
-      valid = false;
-    }
-    if (!image) {
-      errors.image = 'Image URL is required';
-      valid = false;
-    }
-
-    setErrors(errors);
-    return valid;
+    return true;
   };
 
-  const handleSubmit = () => {
+  // Handle form submission
+const handleSubmit = async () => {
     if (validate()) {
       const newRecipe = {
-        id: Math.random().toString(),  // Tạo id ngẫu nhiên cho công thức
+        id: Math.random().toString(),
         name,
         category,
         description,
@@ -75,210 +36,168 @@ const CreateRecipeScreen = ({ navigation }) => {
         cookingTime,
         servings,
         ingredients,
-        instructions,
-        image,
+        steps,
+        image: imageUri, // Include selected image URI
+        note, // Include note for the image
       };
 
-      // Cập nhật danh sách myRecipes với công thức mới
-      setMyRecipes([...myRecipes, newRecipe]);
+      try {
+        // You can replace the below with your backend API call if needed
+        alert('Recipe submitted successfully!');
+        console.log('Recipe submitted:', newRecipe);
 
-      console.log('Recipe submitted:', newRecipe);
-      Alert.alert('Success', 'Recipe submitted successfully');
-      
-      // Làm sạch các trường sau khi thêm công thức
-      setName('');
-      setCategory('');
-      setDescription('');
-      setCalories('');
-      setCookingTime('');
-      setServings('');
-      setIngredients([{ name: '', amount: '' }]);
-      setInstructions(['']);
-      setImage('');
-    } else {
-      Alert.alert('Validation Failed', 'Please fill all required fields correctly');
+        // Clear the form after successful submission
+        setName('');
+        setCategory('');
+        setDescription('');
+        setCalories('');
+        setCookingTime('');
+        setServings('');
+        setIngredients([{ name: '', amount: '' }]);
+        setSteps(['']);
+        setImageUri(null); // Reset image URI
+        setNote(''); // Reset note
+      } catch (error) {
+        alert('Error submitting recipe');
+        console.error('Error:', error);
+      }
     }
   };
 
+  // Handle ingredient change
+  const handleIngredientChange = (index, field, value) => {
+    const newIngredients = [...ingredients];
+    newIngredients[index][field] = value;
+    setIngredients(newIngredients);
+  };
+
+  // Handle step change
+  const handleStepChange = (index, value) => {
+    const newSteps = [...steps];
+    newSteps[index] = value;
+    setSteps(newSteps);
+  };
+
   return (
-    <KeyboardAwareScrollView contentContainerStyle={styles.scrollView} enableOnAndroid={true} extraScrollHeight={20}>
-      <View style={styles.container}>
-        <Icon
-          name="arrow-back"
-          size={30}
-          color="black"
-          style={styles.iconBack}
-          onPress={() => navigation.goBack()}
-        />
+    <KeyboardAwareScrollView
+      contentContainerStyle={styles.container}
+      enableOnAndroid={true}
+      extraScrollHeight={20}
+      keyboardShouldPersistTaps="handled" // Ensures the keyboard doesn't dismiss when tapping outside
+    >
+      <Text style={styles.title}>Create New Recipe</Text>
 
-        {/* Tiêu đề trang */}
-        <Text style={styles.pageTitle}>Add a New Recipe</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Recipe Name"
+        value={name}
+        onChangeText={setName}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Category"
+        value={category}
+        onChangeText={setCategory}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Description"
+        value={description}
+        onChangeText={setDescription}
+        multiline
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Calories"
+        value={calories}
+        onChangeText={setCalories}
+        keyboardType="numeric"
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Cooking Time"
+        value={cookingTime}
+        onChangeText={setCookingTime}
+      />
+      <TextInput
+        style={styles.input}
+        placeholder="Servings"
+        value={servings}
+        onChangeText={(text) => setServings(Number(text))}
+        keyboardType="numeric"
+      />
 
-        <Text style={styles.label}>Recipe Name:</Text>
-        <TextInput
-          style={[styles.input, errors.name && styles.errorInput]}
-          value={name}
-          onChangeText={setName}
-          placeholder="Enter recipe name"
-        />
-        {errors.name && <Text style={styles.errorText}>{errors.name}</Text>}
-
-        <Text style={styles.label}>Category:</Text>
-        <TextInput
-          style={[styles.input, errors.category && styles.errorInput]}
-          value={category}
-          onChangeText={setCategory}
-          placeholder="Enter recipe category"
-        />
-        {errors.category && <Text style={styles.errorText}>{errors.category}</Text>}
-
-        <Text style={styles.label}>Description:</Text>
-        <TextInput
-          style={[styles.input, errors.description && styles.errorInput]}
-          value={description}
-          onChangeText={setDescription}
-          placeholder="Enter description"
-          multiline
-        />
-        {errors.description && <Text style={styles.errorText}>{errors.description}</Text>}
-
-        <Text style={styles.label}>Calories:</Text>
-        <TextInput
-          style={[styles.input, errors.calories && styles.errorInput]}
-          value={calories}
-          onChangeText={setCalories}
-          placeholder="Enter calories"
-          keyboardType="numeric"
-        />
-        {errors.calories && <Text style={styles.errorText}>{errors.calories}</Text>}
-
-        <Text style={styles.label}>Time (hh:mm:ss):</Text>
-        <TextInput
-          style={[styles.input, errors.cookingTime && styles.errorInput]}
-          value={cookingTime}
-          onChangeText={setCookingTime}
-          placeholder="Enter cooking time"
-        />
-        {errors.cookingTime && <Text style={styles.errorText}>{errors.cookingTime}</Text>}
-
-        <Text style={styles.label}>Servings:</Text>
-        <TextInput
-          style={[styles.input, errors.servings && styles.errorInput]}
-          value={servings}
-          onChangeText={(text) => setServings(Number(text))}
-          placeholder="Enter servings"
-          keyboardType="numeric"
-        />
-        {errors.servings && <Text style={styles.errorText}>{errors.servings}</Text>}
-
-        <Text style={styles.label}>Ingredients:</Text>
-        {ingredients.map((ingredient, index) => (
-          <View key={index} style={styles.ingredientContainer}>
-            <TextInput
-              style={styles.input}
-              value={ingredient.name}
-              onChangeText={(text) => {
-                const newIngredients = [...ingredients];
-                newIngredients[index].name = text;
-                setIngredients(newIngredients);
-              }}
-              placeholder="Ingredient name"
-            />
-            <TextInput
-              style={styles.input}
-              value={ingredient.amount}
-              onChangeText={(text) => {
-                const newIngredients = [...ingredients];
-                newIngredients[index].amount = text;
-                setIngredients(newIngredients);
-              }}
-              placeholder="Amount"
-            />
-          </View>
-        ))}
-        <Button title="Add Ingredient" onPress={handleAddIngredient} color="#28a745" />
-
-        <Text style={styles.label}>Steps:</Text>
-        {instructions.map((instruction, index) => (
+      {/* Ingredients */}
+      <Text style={styles.label}>Ingredients:</Text>
+      {ingredients.map((ingredient, index) => (
+        <View key={index} style={styles.ingredientContainer}>
           <TextInput
-            key={index}
             style={styles.input}
-            value={instruction}
-            onChangeText={(text) => {
-              const newInstructions = [...instructions];
-              newInstructions[index] = text;
-              setInstructions(newInstructions);
-            }}
-            placeholder={`Step ${index + 1}`}
+            placeholder="Ingredient name"
+            value={ingredient.name}
+            onChangeText={(text) => handleIngredientChange(index, 'name', text)}
           />
-        ))}
-        <Button title="Add Instruction" onPress={handleAddInstruction} color="#28a745" />
+          <TextInput
+            style={styles.input}
+            placeholder="Amount"
+            value={ingredient.amount}
+            onChangeText={(text) => handleIngredientChange(index, 'amount', text)}
+          />
+        </View>
+      ))}
+      <Button title="Add Ingredient" onPress={() => setIngredients([...ingredients, { name: '', amount: '' }])} color="#28a745" />
 
-        <Text style={styles.label}>Image URL:</Text>
+      {/* Steps */}
+      <Text style={styles.label}>Steps:</Text>
+      {steps.map((step, index) => (
         <TextInput
-          style={[styles.input, errors.image && styles.errorInput]}
-          value={image}
-          onChangeText={setImage}
-          placeholder="Enter image URL"
+          key={index}
+          style={styles.input}
+          value={step}
+          onChangeText={(text) => handleStepChange(index, text)}
+          placeholder={`Step ${index + 1}`}
         />
-        {errors.image && <Text style={styles.errorText}>{errors.image}</Text>}
+      ))}
+      <Button title="Add Step" onPress={() => setSteps([...steps, ''])} color="#28a745" />
 
-        <Button title="Submit Recipe" onPress={handleSubmit} color="#28a745" />
-      </View>
+      {/* Image Picker Component */}
+      <ImagePickerComponent setImageUri={setImageUri} setNote={setNote} imageUri={imageUri} note={note} />
+
+      {/* Submit Button */}
+      <Button title="Submit Recipe" onPress={handleSubmit} />
     </KeyboardAwareScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#f1f1f1',
-    padding: 30,
+    flexGrow: 1, // Ensure the container grows to fill available space
+    padding: 20,
+    backgroundColor: '#fff',
   },
-  scrollView: {
-    flexGrow: 1,
-    paddingTop: 20,
-    paddingBottom: 10,
-  },
-  pageTitle: {
+  title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#28a745',  // Tiêu đề màu xanh lá
     textAlign: 'center',
-    marginVertical: 20,
+    marginBottom: 20,
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    marginVertical: 10,
+    borderRadius: 5,
+    fontSize: 16,
   },
   label: {
     fontSize: 16,
     fontWeight: 'bold',
     marginVertical: 10,
-    color: '#000', // Màu đen cho các nhãn
-  },
-  input: {
-    borderWidth: 1,
-    borderColor: '#28a745', // Viền màu xanh lá
-    padding: 12,
-    marginVertical: 10,
-    borderRadius: 10, // Bo góc input đẹp hơn
-    backgroundColor: '#fff', // Màu nền sáng cho input
-    fontSize: 16,
-    color: '#000', // Màu chữ đen trong các input
+    color: '#000',
   },
   ingredientContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-  },
-  errorInput: {
-    borderColor: 'red',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 12,
-  },
-  iconBack: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-    zIndex: 1,
   },
 });
 
