@@ -1,55 +1,94 @@
-import { Ionicons } from '@expo/vector-icons';
-import React from 'react';
-import { Alert, FlatList, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Ionicons } from "@expo/vector-icons";
+import React,{useEffect,useState} from "react";
+import {
+  Alert,
+  FlatList,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import database from "../database.json"; 
+
 
 const RecipeDetail = ({ route, navigation }) => {
   const { recipe } = route.params; // Get the recipe data from route params
+  const [isSaved, setIsSaved] = useState(false);
 
   const infoData = [
-    { label: 'Calories', value: `${recipe.calories} Cal`, icon: 'flame' },
-    { label: 'Time', value: recipe.cookingTime, icon: 'time' },
-    { label: 'Servings', value: `${recipe.servings} People`, icon: 'people' },
+    { label: "Calories", value: `${recipe.calories} Cal`, icon: "flame" },
+    { label: "Time", value: recipe.cookingTime, icon: "time" },
+    { label: "Servings", value: `${recipe.servings} People`, icon: "people" },
   ];
+
+  useEffect(() => {
+    // Kiểm tra xem recipe có trong savedRecipes không
+    const exists = database.savedRecipes.some((item) => item.id === recipe.id);
+    setIsSaved(exists);
+  }, [database.savedRecipes, recipe.id]);
 
   const handleSave = async () => {
     try {
-      const response = await fetch('http://localhost:5000/savedRecipes', {
-        method: 'POST',
+      const response = await fetch("http://10.0.2.2:5001/savedRecipes", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(recipe),
       });
       const data = await response.json();
-      console.log('Recipe saved!', data);
-      Alert.alert('Success', 'Recipe has been saved to your saved recipes!');
+      console.log("Recipe saved!", data);
+      Alert.alert("Success", "Recipe has been saved to your saved recipes!");
     } catch (error) {
-      console.error('Error saving recipe:', error);
-      Alert.alert('Error', 'Failed to save recipe. Please try again later.');
+      console.error("Error saving recipe:", error);
+      Alert.alert("Error", "Failed to save recipe. Please try again later.");
     }
   };
 
   return (
     <FlatList
-      data={[{ type: 'header' }, { type: 'info' }, { type: 'ingredients' }, { type: 'steps' }, { type: 'cta' }]} // Adding CTA as last item
+      data={[
+        { type: "header" },
+        { type: "info" },
+        { type: "ingredients" },
+        { type: "steps" },
+        { type: "cta" },
+      ]} // Adding CTA as last item
       renderItem={({ item }) => {
-        if (item.type === 'header') {
+        if (item.type === "header") {
           return (
             <View style={styles.headerContainer}>
               {/* Back Button */}
-              <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+              <TouchableOpacity
+                style={styles.backButton}
+                onPress={() => navigation.goBack()}
+              >
                 <Ionicons name="arrow-back" size={24} color="black" />
                 <Text style={styles.backText}>Back</Text>
               </TouchableOpacity>
 
               {/* Recipe Image */}
-              <Image source={{ uri: recipe.image }} style={styles.recipeImage} />
+              <Image
+                source={{ uri: recipe.image }}
+                style={styles.recipeImage}
+              />
 
               {/* Recipe Title and Save Icon */}
               <View style={styles.recipeHeader}>
                 <Text style={styles.recipeName}>{recipe.name}</Text>
                 <TouchableOpacity onPress={handleSave}>
-                  <Ionicons name="heart-outline" size={24} color="#4CAF50" />
+                  <Ionicons
+                    name={isSaved ? "heart" : "heart-outline"} // Nếu đã lưu thì dùng icon đầy, chưa thì outline
+                    size={24}
+                    color={isSaved ? "#4CAF50" : "#4CAF50"} // Màu đỏ nếu đã lưu, màu xanh nếu chưa
+                    style={{
+                      borderWidth: 1, // Nếu chưa lưu thì thêm viền
+                      borderColor: "#4CAF50",
+                      borderRadius: 12,
+                      padding: 4,
+                    }}
+                  />
                 </TouchableOpacity>
               </View>
 
@@ -59,7 +98,7 @@ const RecipeDetail = ({ route, navigation }) => {
           );
         }
 
-        if (item.type === 'info') {
+        if (item.type === "info") {
           return (
             <View style={styles.infoContainer}>
               {infoData.map((info, index) => (
@@ -73,22 +112,29 @@ const RecipeDetail = ({ route, navigation }) => {
           );
         }
 
-        if (item.type === 'ingredients') {
+        if (item.type === "ingredients") {
           return (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Ingredients:</Text>
               {recipe.ingredients.map((ingredient, index) => (
                 <View key={index} style={styles.ingredientContainer}>
-                  <Ionicons name="nutrition" size={24} color="#4CAF50" style={styles.ingredientIcon} />
+                  <Ionicons
+                    name="nutrition"
+                    size={24}
+                    color="#4CAF50"
+                    style={styles.ingredientIcon}
+                  />
                   <Text style={styles.ingredientName}>{ingredient.name}</Text>
-                  <Text style={styles.ingredientAmount}>{ingredient.amount}</Text>
+                  <Text style={styles.ingredientAmount}>
+                    {ingredient.amount}
+                  </Text>
                 </View>
               ))}
             </View>
           );
         }
 
-        if (item.type === 'steps') {
+        if (item.type === "steps") {
           return (
             <View style={styles.section}>
               <Text style={styles.sectionTitle}>Instructions:</Text>
@@ -104,12 +150,16 @@ const RecipeDetail = ({ route, navigation }) => {
         }
 
         // Call to Action section at the bottom
-        if (item.type === 'cta') {
+        if (item.type === "cta") {
           return (
             <View style={styles.ctaContainer}>
               <Ionicons name="fast-food" size={30} color="white" />
-              <Text style={styles.ctaText}>Warm up your stove, and let's get cooking!</Text>
-              <Text style={styles.ctaSubText}>Make something for your LOVE</Text>
+              <Text style={styles.ctaText}>
+                Warm up your stove, and let's get cooking!
+              </Text>
+              <Text style={styles.ctaSubText}>
+                Make something for your LOVE
+              </Text>
             </View>
           );
         }
@@ -125,35 +175,35 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     padding: 20,
   },
   backText: {
     marginLeft: 5,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   recipeImage: {
-    width: '100%',
+    width: "100%",
     height: 250,
     borderRadius: 10,
     marginBottom: 16,
   },
   recipeHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', // Align name to the left and save icon to the right
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between", // Align name to the left and save icon to the right
+    alignItems: "center",
     marginBottom: 10,
   },
   recipeName: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 10,
   },
   category: {
     fontSize: 16,
-    color: '#888',
+    color: "#888",
     marginBottom: 10,
   },
   description: {
@@ -162,26 +212,26 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   infoContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 20,
     paddingHorizontal: 16,
   },
   infoCard: {
-    backgroundColor: '#4CAF50',
+    backgroundColor: "#4CAF50",
     padding: 10,
     borderRadius: 10,
-    width: '30%',
-    alignItems: 'center',
+    width: "30%",
+    alignItems: "center",
   },
   infoText: {
     fontSize: 14,
-    color: 'white',
+    color: "white",
   },
   infoValue: {
     fontSize: 16,
-    color: 'white',
-    fontWeight: 'bold',
+    color: "white",
+    fontWeight: "bold",
   },
   section: {
     paddingHorizontal: 16,
@@ -189,13 +239,13 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 10,
   },
   ingredientContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between', // Align name and amount to both ends
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between", // Align name and amount to both ends
+    alignItems: "center",
     marginBottom: 10,
   },
   ingredientIcon: {
@@ -204,15 +254,15 @@ const styles = StyleSheet.create({
   ingredientName: {
     fontSize: 16,
     flex: 1, // Ensures the name stays on the left
-    textAlign: 'left',
+    textAlign: "left",
   },
   ingredientAmount: {
     fontSize: 16,
-    textAlign: 'right', // Align the amount to the right
+    textAlign: "right", // Align the amount to the right
   },
   stepContainer: {
     borderWidth: 1,
-    borderColor: '#ddd',
+    borderColor: "#ddd",
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
@@ -223,9 +273,9 @@ const styles = StyleSheet.create({
   },
   // CTA section styles
   ctaContainer: {
-    backgroundColor: '#D8E8E5',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#D8E8E5",
+    alignItems: "center",
+    justifyContent: "center",
     paddingVertical: 30,
     paddingHorizontal: 20,
     marginBottom: 16,
@@ -234,13 +284,13 @@ const styles = StyleSheet.create({
   },
   ctaText: {
     fontSize: 20,
-    fontWeight: 'bold',
-    color: 'black',
+    fontWeight: "bold",
+    color: "black",
     marginVertical: 5,
   },
   ctaSubText: {
     fontSize: 16,
-    color: 'black',
+    color: "black",
   },
 });
 

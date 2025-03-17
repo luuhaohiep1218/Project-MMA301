@@ -1,8 +1,10 @@
 import { StyleSheet, Text, View, FlatList, ImageBackground, TouchableOpacity, Dimensions } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { StatusBar } from "expo-status-bar";
-import { useState } from "react";
-import { myRecipes, savedRecipes } from "../data";
+import { useState, useEffect } from "react";
+import database from "../database.json"; 
+import { useNavigation } from "@react-navigation/native";
+
 
 const numColumns = 2;
 const screenWidth = Dimensions.get("window").width;
@@ -10,16 +12,25 @@ const itemWidth = screenWidth / numColumns - 24;
 
 const CookbookPage = () => {
   const [activeTab, setActiveTab] = useState("My Recipe");
+  const [myRecipes, setMyRecipes] = useState([]);
+  const [savedRecipes, setSavedRecipes] = useState([]);
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = () => {
+    setMyRecipes(database.myRecipes);
+    setSavedRecipes(database.savedRecipes);
+  };
 
   const data = activeTab === "My Recipe" ? myRecipes : savedRecipes;
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={() => navigation.navigate("RecipeDetail", { recipe: item })}>
       <ImageBackground source={{ uri: item.image }} style={styles.image} imageStyle={{ borderRadius: 16 }}>
-        <LinearGradient
-          colors={["rgba(0,0,0,0.1)", "rgba(0,0,0,1)"]} 
-          style={styles.textContainer}
-        >
+        <LinearGradient colors={["rgba(0,0,0,0.1)", "rgba(0,0,0,1)"]} style={styles.textContainer}>
           <Text style={styles.title}>{item.name}</Text>
         </LinearGradient>
       </ImageBackground>

@@ -851,5 +851,152 @@
       "image": "https://tse4.mm.bing.net/th?id=OIP.MiAGrYafshORM2n_HLu4swHaHa&pid=Api&P=0&h=220"
     }
   ],
-  "savedRecipes": []
+  "savedRecipes": [
+    {
+      "id": "4",
+      "name": "Pad Thai",
+      "category": "Fastfood",
+      "description": "Món mì xào nổi tiếng của Thái với tôm, đậu hũ, đậu phộng và sốt chua ngọt.",
+      "calories": 400,
+      "cookingTime": "25 phút",
+      "servings": 3,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Phat_Thai_kung_Chang_Khien_street_stall.jpg/800px-Phat_Thai_kung_Chang_Khien_street_stall.jpg",
+      "ingredients": [
+        {
+          "name": "Mì gạo",
+          "amount": "200g"
+        },
+        {
+          "name": "Tôm",
+          "amount": "150g, bóc vỏ"
+        },
+        {
+          "name": "Đậu hũ",
+          "amount": "100g, cắt khối"
+        },
+        {
+          "name": "Đậu phộng",
+          "amount": "2 muỗng canh, giã nhỏ"
+        },
+        {
+          "name": "Trứng",
+          "amount": "1 quả, đánh tan"
+        }
+      ],
+      "instructions": [
+        "Ngâm mì gạo trong nước ấm cho mềm, sau đó để ráo.",
+        "Xào tôm và đậu hũ đến khi vàng giòn.",
+        "Đẩy chúng sang một bên chảo, cho trứng vào đảo đều.",
+        "Thêm mì và nước sốt Pad Thai, trộn đều.",
+        "Trang trí với đậu phộng giã nhỏ, ăn nóng."
+      ]
+    },
+    {
+      "id": "9",
+      "name": "Gỏi Cuốn",
+      "category": "Appetizer",
+      "description": "Gỏi cuốn tươi mát với tôm, thịt heo, bún và rau sống, cuốn trong bánh tráng.",
+      "calories": 200,
+      "cookingTime": "30 phút",
+      "servings": 4,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/0/03/Summer_roll.jpg",
+      "ingredients": [
+        {
+          "name": "Bánh tráng",
+          "amount": "10 cái"
+        },
+        {
+          "name": "Tôm",
+          "amount": "200g, luộc chín"
+        },
+        {
+          "name": "Thịt heo",
+          "amount": "150g, luộc chín"
+        },
+        {
+          "name": "Bún tươi",
+          "amount": "200g"
+        },
+        {
+          "name": "Rau sống",
+          "amount": "100g"
+        }
+      ],
+      "instructions": [
+        "Luộc tôm và thịt heo, sau đó thái lát mỏng.",
+        "Ngâm bánh tráng trong nước ấm cho mềm.",
+        "Xếp tôm, thịt, bún và rau sống lên bánh tráng.",
+        "Cuộn chặt lại và cắt đôi.",
+        "Ăn kèm với nước mắm chua ngọt."
+      ]
+    },
+    {
+      "id": "16",
+      "name": "Chocolate Cake",
+      "category": "Dessert",
+      "description": "Bánh chocolate mềm mịn, ngọt ngào.",
+      "calories": 450,
+      "cookingTime": "45 phút",
+      "servings": 8,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP7mYb2zvY2IGO9_EocEptv0k-JTabTeh58g&s",
+      "ingredients": [
+        {
+          "name": "Bột mì",
+          "amount": "200g"
+        },
+        {
+          "name": "Đường",
+          "amount": "150g"
+        },
+        {
+          "name": "Trứng",
+          "amount": "3 quả"
+        },
+        {
+          "name": "Bơ",
+          "amount": "100g"
+        },
+        {
+          "name": "Bột cacao",
+          "amount": "50g"
+        }
+      ],
+      "instructions": [
+        "Trộn tất cả nguyên liệu.",
+        "Nướng trong lò ở 180°C trong 30 phút."
+      ]
+    },
+    {
+      "id": "17",
+      "name": "Paneer Curry",
+      "category": "Dinner",
+      "description": "Paneer nấu với nước sốt cay đặc trưng của Ấn Độ.",
+      "calories": 400,
+      "cookingTime": "40 phút",
+      "servings": 4,
+      "image": "https://ichef.bbci.co.uk/food/ic/food_16x9_1600/recipes/butter_paneer_curry_98394_16x9.jpg",
+      "ingredients": [
+        {
+          "name": "Paneer",
+          "amount": "250g"
+        },
+        {
+          "name": "Cà chua",
+          "amount": "2 quả"
+        },
+        {
+          "name": "Hành tây",
+          "amount": "1 củ"
+        },
+        {
+          "name": "Gia vị",
+          "amount": "tuỳ chỉnh"
+        }
+      ],
+      "instructions": [
+        "Xào hành và cà chua.",
+        "Thêm paneer và gia vị, nấu thêm 15 phút."
+      ]
+    }
+  ]
 }
