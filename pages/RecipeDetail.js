@@ -13,7 +13,7 @@ import database from "../database.json";
 
 
 const RecipeDetail = ({ route, navigation }) => {
-  const { recipe } = route.params; // Get the recipe data from route params
+  const { recipe } = route.params; 
   const [isSaved, setIsSaved] = useState(false);
 
   const infoData = [
@@ -23,7 +23,6 @@ const RecipeDetail = ({ route, navigation }) => {
   ];
 
   useEffect(() => {
-    // Kiểm tra xem recipe có trong savedRecipes không
     const exists = database.savedRecipes.some((item) => item.id === recipe.id);
     setIsSaved(exists);
   }, [database.savedRecipes, recipe.id]);

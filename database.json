@@ -997,6 +997,118 @@
         "Xào hành và cà chua.",
         "Thêm paneer và gia vị, nấu thêm 15 phút."
       ]
+    },
+    {
+      "id": "15",
+      "name": "Bánh Cuốn",
+      "category": "Breakfast",
+      "description": "Bánh cuốn mềm mại với nhân thịt heo và nấm, thường ăn kèm với nước mắm chua ngọt.",
+      "calories": 300,
+      "cookingTime": "1 giờ",
+      "servings": 4,
+      "image": "https://i0.wp.com/mycogroup.com.vn/wp-content/uploads/2023/05/banh-cuon-ha-noi.jpg?resize=1020%2C574&ssl=1",
+      "ingredients": [
+        {
+          "name": "Bột gạo",
+          "amount": "200g"
+        },
+        {
+          "name": "Thịt heo xay",
+          "amount": "200g"
+        },
+        {
+          "name": "Nấm mèo",
+          "amount": "50g, ngâm nở"
+        },
+        {
+          "name": "Hành khô",
+          "amount": "2 củ, băm nhỏ"
+        },
+        {
+          "name": "Nước mắm",
+          "amount": "3 muỗng canh"
+        }
+      ],
+      "instructions": [
+        "Pha bột gạo với nước, để bột nghỉ 30 phút.",
+        "Xào thịt heo với nấm mèo và hành khô.",
+        "Tráng bột thành bánh mỏng, thêm nhân vào giữa.",
+        "Cuộn bánh lại và ăn kèm với nước mắm chua ngọt."
+      ]
+    },
+    {
+      "id": "11",
+      "name": "Bánh Mì",
+      "category": "Breakfast",
+      "description": "Bánh mì Việt Nam với nhân thịt, chả lụa, rau sống và pate, thường ăn kèm với nước sốt đặc biệt.",
+      "calories": 300,
+      "cookingTime": "15 phút",
+      "servings": 2,
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/B%C3%A1nh_m%C3%AC_th%E1%BB%8Bt_n%C6%B0%E1%BB%9Bng.png/800px-B%C3%A1nh_m%C3%AC_th%E1%BB%8Bt_n%C6%B0%E1%BB%9Bng.png",
+      "ingredients": [
+        {
+          "name": "Bánh mì",
+          "amount": "2 ổ"
+        },
+        {
+          "name": "Thịt nguội",
+          "amount": "100g"
+        },
+        {
+          "name": "Chả lụa",
+          "amount": "100g"
+        },
+        {
+          "name": "Rau sống",
+          "amount": "50g"
+        },
+        {
+          "name": "Pate",
+          "amount": "2 muỗng canh"
+        }
+      ],
+      "instructions": [
+        "Nướng bánh mì cho giòn.",
+        "Phết pate lên bánh mì.",
+        "Xếp thịt nguội, chả lụa và rau sống vào bánh mì.",
+        "Rưới nước sốt đặc biệt lên và thưởng thức."
+      ]
+    },
+    {
+      "id": "16",
+      "name": "Chocolate Cake",
+      "category": "Dessert",
+      "description": "Bánh chocolate mềm mịn, ngọt ngào.",
+      "calories": 450,
+      "cookingTime": "45 phút",
+      "servings": 8,
+      "image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRP7mYb2zvY2IGO9_EocEptv0k-JTabTeh58g&s",
+      "ingredients": [
+        {
+          "name": "Bột mì",
+          "amount": "200g"
+        },
+        {
+          "name": "Đường",
+          "amount": "150g"
+        },
+        {
+          "name": "Trứng",
+          "amount": "3 quả"
+        },
+        {
+          "name": "Bơ",
+          "amount": "100g"
+        },
+        {
+          "name": "Bột cacao",
+          "amount": "50g"
+        }
+      ],
+      "instructions": [
+        "Trộn tất cả nguyên liệu.",
+        "Nướng trong lò ở 180°C trong 30 phút."
+      ]
     }
   ]
 }

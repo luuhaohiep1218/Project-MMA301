@@ -52,7 +52,7 @@ const CookbookPage = () => {
         data={data}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
-        numColumns={numColumns}
+        numColumns={2}
         contentContainerStyle={styles.list}
       />
       <StatusBar style="auto" />
